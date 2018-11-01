@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+	
+	<cc:interface>
+		<cc:attribute name="styleClass" required="false" type="String" default="" />
+		<cc:attribute name="showIcon" required="false" type="boolean" default="true" />
+		<cc:attribute name="icon" required="false" type="String" default="" />
+		<cc:attribute name="title" required="false" type="String" default="" />
+	</cc:interface>
+	
+	<cc:implementation>
+	
+		<div class="cxp-panel content-section #{cc.attrs.styleClass}">
+		
+			<div class="section-heading">
+				<div class="row">
+				
+					<div class="col-xs-10 cxp-panel-title">
+						<a role="button" aria-expanded="true" onclick="cxpPanelToggle(this);return false;">
+							<ui:fragment rendered="#{cc.attrs.showIcon}">
+								<span class="heading-icon rounded-circle">
+									<i class="far #{cc.attrs.icon}" aria-hidden="true"></i>
+								</span>
+							</ui:fragment>
+							
+							<h3 class="heading-title">#{cc.attrs.title}</h3>
+						</a>
+					</div>
+					
+					<div class="col-xs-2">
+						<span class="section-toggle">
+							<a role="button" aria-expanded="true" title="Toggle Panel" onclick="cxpPanelToggle(this);return false;">
+								<i class="fas" aria-hidden="true"></i>
+							</a>
+						</span>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="cxp-panel-content section-body collapse in">
+				<div class="pt20">
+				
+					<h:panelGroup id="panelContent">
+						<cc:insertChildren />
+					</h:panelGroup>
+	
+				</div>
+			</div>
+	
+		</div>
+	
+	</cc:implementation>
+
+</html>

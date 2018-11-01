@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cxp="http://xmlns.jcp.org/jsf/composite/components">
+	
+	<script>
+		Liferay.Loader.define._amd = Liferay.Loader.define.amd;
+		Liferay.Loader.define.amd = false;
+		define._amd = define.amd;
+		define.amd = false;
+	</script>
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/css/datatables.responsive.fixedheader.min.css"></link>
+	<script type="text/javascript" charset="utf8"
+		src="#{request.contextPath}/js/datatables.responsive.fixedheader.min.js"></script>
+	<script>
+		Liferay.Loader.define.amd = Liferay.Loader.define._amd;
+		define.amd = define._amd;
+	</script>
+	
+	<h:head>
+		<h:outputStylesheet library="css" name="main.css" />
+		<h:outputScript library="js" name="main.js" />
+	</h:head>
+
+	<h:body>
+	
+		<h:panelGroup id="OrderSearch" layout="block" styleClass="container-fluid constrain search">
+		
+			<header class="content-heading">
+				<div class="row">
+					<div class="col-xs-12">
+						<p>Enter criteria to search for existing orders.</p>
+					</div>
+				</div>
+			</header>
+			
+			<cxp:panel title="Search Criteria" icon="fa-search">
+				
+				<h:form id="SearchForm" name="SearchForm">
+				
+					<div class="row no-margin pt20">
+						<div class="col-xs-12 col-md-8">
+							<div class="fancy-input">
+						
+								<ui:remove>
+								<label for="userId">Enter a Tracking Number or Customer Reference Number</label>
+								<input title="Tracking Number or Customer Reference Number" required="" type="text" class="form-control" id="searchKey" name="searchKey" max="100" placeholder="Enter a Tracking Number or Customer Reference Number"/>
+								<span class="search-tools"> <a href="javascript:;" class="fa fa-search"></a></span>
+								</ui:remove>
+								
+								<b:inputText id="searchKey" name="searchKey" label="Enter a Tracking Number or Customer Reference Number" type="text" value="#{searchBean.searchKey}" maxlength="100" required="true" 
+										validator-message="Please enter a number less than 100 chararcters." >
+								</b:inputText>
+								<span class="search-tools">
+									<b:commandButton type="submit" ajax="true" iconAwesome="fa-search" actionListener="#{searchBean.searchOrders}" update=":OrderSearch" />
+								</span>
+								<b:message for="searchKey" auto-update="true" />
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-4 advanced-option">
+							<a data-toggle="collapse" data-parent="#card-accordion-simple" href="#advSearchSection" aria-expanded="false" aria-controls="collapseOne">Advanced Search</a>
+						</div>
+					</div>
+					
+				</h:form>
+					
+				<h:form id="AdvSearchForm" name="AdvSearchForm">
+				
+					<div class="row advance-search">		
+						<cxp:tabPanelArea id="advSearchSection" styleClass="adv-search-section">
+				
+							<p class="form-hint"><span>* </span>At least one field is required to search</p>
+
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<b:inputText id="userEmail" name="userEmail" label="Email" type="email" value="" maxlength="100"
+										validator-message="Please enter a valid email address." />
+								<b:message for="userEmail" auto-update="true" />
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<b:inputText id="refNumber" name="refNumber" label="Customer Reference Number" type="text" value="" maxlength="100"
+										validator-message="Please enter a valid reference number less than 100 characters." />
+								<b:message for="refNumber" auto-update="true" />
+							</div>
+							<div id="datepicker_dateCreated" class="col-xs-12 col-sm-6 col-md-2">
+								<b:dateTimePicker id="dateCreated" name="dateCreated" label="Date Created" value="" show-date="true" show-time="false" use-current="false" />
+								<b:message for="dateCreated" auto-update="true" />
+							</div>
+							<div id="datepicker_to" class="col-xs-12 col-sm-6 col-md-2">
+								<b:dateTimePicker id="toDate" name="toDate" label="To" value="" show-date="true" show-time="false" use-current="false" />
+								<b:message for="toDate" auto-update="true" />
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<b:inputText id="firstName" name="firstName" label="First Name" type="text" value="" maxlength="100"
+										validator-message="Please enter a valid name less than 100 characters." />
+								<b:message for="firstName" auto-update="true" />
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<b:inputText id="lastName" name="lastName" label="Last Name" type="text" value="" maxlength="100"
+										validator-message="Please enter a valid name less than 100 characters." />
+								<b:message for="lastName" auto-update="true" />
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-2">
+								<b:inputText id="SIN" name="SIN" label="SIN" type="text" value="" title="SIN (9 digits)" maxlength="11" 
+										validator-message="Please enter a 9 digit number with optional hyphen separators every 3 digits." >
+									<f:validateRegex pattern="([0-9]{3}-?){2}[0-9]{3}" />
+								</b:inputText>
+								<b:message for="SIN" auto-update="true" />
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-2">
+								<b:formGroup>
+									<b:selectOneMenu id="Status" value="" label="Status">
+										<f:selectItem itemLabel="Select Status" itemValue="" />
+										<f:selectItem itemLabel="Show All" itemValue="" />
+										<f:selectItem itemLabel="Completed" itemValue="Completed" />
+										<f:selectItem itemLabel="In Progress" itemValue="In Progress" />
+									</b:selectOneMenu>
+									<b:message for="Status" auto-update="true" />
+								</b:formGroup>
+							</div>
+				
+						</cxp:tabPanelArea>
+						
+					</div>
+					
+				</h:form>
+
+			</cxp:panel>
+		
+			<div class="content-section p2"></div>
+			
+			<h:panelGroup id="SearchResults" styleClass="SearchResults" rendered="#{searchBean.showResults}" >
+			
+				<b:dataTable value="#{searchBean.searchOrders}" var="order" searching='false' 
+				custom-options="&quot;dom&quot;:&quot;&lt;'row'&lt;'col-xs-6 table-filter'&gt;&lt;'col-xs-6 table-limit'l&gt;&gt;&quot; +&quot;&lt;'row'&lt;'col-sm-12'tr&gt;&gt;&quot; +&quot;&lt;'row'&lt;'col-sm-5'i&gt;&lt;'col-sm-7'p&gt;&gt;&quot;,&quot;language&quot;: {&quot;search&quot;: &quot;Filter: &quot;,&quot;lengthMenu&quot;: '&lt;select class=&quot;form-control input-sm&quot;&gt;'+'&lt;option value=&quot;10&quot;&gt;10 per page&lt;/option&gt;'+'&lt;option value=&quot;20&quot;&gt;20 per page&lt;/option&gt;'+'&lt;option value=&quot;50&quot;&gt;50 per page&lt;/option&gt;'+'&lt;option value=&quot;-1&quot;&gt;All&lt;/option&gt;'+'&lt;/select&gt;'},responsive: {details: {type: 'column',target: 'tr'}},columnDefs: [ { className: 'control',orderable: false,targets:   -1 },{ orderable: false,targets:   2 },{ orderable: false,targets:   -2 },{ responsivePriority: 1, targets: 0 },{ responsivePriority: 2, targets: -2 }]"
+				styleClass="table table-striped table-bordered nowrap data-table">
+				
+					<b:dataTableColumn label="Tracking Number">
+						<b:commandLink href="#{order.trackingUrl}" value="#{order.trackingNumber}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn value="#{order.custRefNumber}" label="Customer Reference" />
+					<b:dataTableColumn label="Status">
+						<h:panelGroup layout="block" styleClass="status #{order.status?'complete':'in-progress50'}"><i class="far fa-check">#{order.status?'Completed':'In Progress'}</i></h:panelGroup>
+					</b:dataTableColumn>
+					<b:dataTableColumn value="#{order.sin}" label="SIN" />
+					<b:dataTableColumn value="#{order.date}" label="Date Created" />
+					<b:dataTableColumn value="#{order.lastName}" label="Last Name" />
+					<b:dataTableColumn value="#{order.firstName}" label="First Name" />
+					<b:dataTableColumn styleClass="none" value="#{order.submittedBy}"></b:dataTableColumn>
+					<b:dataTableColumn styleClass="none" value="#{order.address}"></b:dataTableColumn>
+					<b:dataTableColumn label="View Order">
+							<b:commandLink style-class="btn btn-outline-info" look="default" value="View Order"  />				
+						</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">
+					       <span class="all-collapsed expandCollapseAll">Click me</span>
+					     </f:facet>
+						<span class="all-collapsed"></span>
+					</b:dataTableColumn>
+					
+					
+				</b:dataTable>
+			
+			</h:panelGroup>
+
+		</h:panelGroup>
+		
+	</h:body>
+</f:view>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+<cc:interface>
+	<cc:attribute name="value" required="true" type="String" />
+	<cc:attribute name="styleClass" required="false" type="String"
+		default="" />
+</cc:interface>
+
+<cc:implementation>
+	
+	<div id="#{cc.attrs.panelId}" class="section-body collapse in">
+		<div class="row quick-search pt20">
+			<h:form id="f1" name="basicSearchForm">
+				<h:panelGroup id="searchField" styleClass="col-xs-12 col-md-8"
+					layout="block">
+					<b:inputText id="searchFieldTxet"
+						placeholder="#{cc.attrs.searchFieldPlaceholderText}"
+						alt="#{cc.attrs.searchFieldPlaceholderText}"
+						tooltip="#{cc.attrs.searchFieldPlaceholderText}"
+						tooltip-position="auto right"
+						value="#">
+					</b:inputText>
+					<h:panelGroup styleClass="search-tools">
+						<b:commandLink style-class="fa fa-search"
+							action="#" ajax="true" value="#" icon="ui-icon-search" process="@form" update="@form"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+			<div class="col-xs-12 col-md-4 advanced-option">
+				<a data-toggle="collapse" data-parent="#card-accordion-simple"
+					href="##{cc.attrs.advSearchSection}" aria-expanded="false"
+					aria-controls="collapseOne">#{cc.attrs.advSearch}</a>
+			</div>
+		</div>
+		<div class="row advance-search">
+			<div id="#{cc.attrs.advSearchSection}"
+				class="collapse adv-search-section" role="tabpanel"
+				aria-labelledby="headingTwo1">
+					
+			</div>
+		</div>
+	</div>
+	<cc:insertChildren />
+</cc:implementation>
+</html>

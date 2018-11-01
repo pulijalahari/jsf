@@ -1,0 +1,11 @@
+.rux-framework.assan-theme .search-tools .btn {
+	border: none;
+	border-left-color: currentcolor;
+	border-left-style: none;
+	border-left-width: medium;
+	position: absolute;
+	top: 5px;
+	right: 20px;
+	color: #239fce;
+	border-left: 1px solid #ccc;
+}

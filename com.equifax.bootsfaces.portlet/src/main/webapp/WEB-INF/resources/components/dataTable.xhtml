@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+<cc:interface>
+		<cc:attribute name="id" required="false" type="String" default="" />
+		<cc:attribute name="styleClass" required="false" type="String" default="" />
+		<cc:attribute name="labelledby" required="false" type="String" default="headingTwo1" />
+	</cc:interface>
+<cc:implementation>
+<cc:insertChildren />
+	<b:dataTable value="#{cc.attrs.bean}" var="bean">
+		<ui:repeat value="#{cc.attrs.prop}" var="prop">
+			<b:dataTableColumn value="#{prop}" />
+		</ui:repeat>
+	</b:dataTable>
+	
+</cc:implementation>
+
+</html>

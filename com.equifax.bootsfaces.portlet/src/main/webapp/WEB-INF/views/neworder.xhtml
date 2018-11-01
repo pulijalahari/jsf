@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:cxp="http://xmlns.jcp.org/jsf/composite/components">
+
+	<h:head>
+		<h:outputStylesheet library="css" name="main.css" />
+		<h:outputScript library="js" name="main.js" />
+	</h:head>
+
+	<h:body>
+
+		<h:panelGroup id="NewOrder" layout="block"
+			styleClass="container-fluid constrain dashboard">
+
+			<header class="content-heading">
+				<div class="row">
+					<div class="col-xs-12">
+						<p>Fill out the information below to start a new order.</p>
+					</div>
+				</div>
+			</header>
+
+			<cxp:panel title="Order Information" icon="fa-shopping-cart">
+				<h:form id="OrderForm" name="OrderForm">
+					<div id="orderInfoPanel" class="section-body collapse in">
+						<div class="row">
+							<div class="col-sm-6 col-md-4 form-group required">
+								<label for="verificationType">Verification Type</label>
+								<b:selectOneMenu value="#{VerificationNewOrderService.country}" required="true" >
+									<f:selectItem itemLabel="Select an Option.." itemValue="" />
+									<f:selectItems value="#{VerificationNewOrderService.countries}"/>
+								</b:selectOneMenu>
+							</div>
+							<div class="col-sm-6 col-md-4 form-group required">
+								<label for="identifyingPurpose">Identifying Purpose</label>
+								
+							</div>
+							<div class="col-sm-6 col-md-4 form-group">
+								<label for="customerRefNum"> Customer Reference
+									Number<a href="#" class="more-info" role="button"
+									data-toggle="popover" data-trigger="hover focus"
+									data-content="Number linking the verification request back to your in-house numbering system">
+										<i class="fas fa-info-circle" aria-hidden="true"></i>
+								</a>
+								</label> <input class="form-control" type="text" id="customerRefNum"
+									name="customerRefNum"
+									placeholder="Optional Unique Identifier for this Verification"/><span
+									class="sr-only" aria-labelledby="Customer Reference Number">Optional
+									Unique Identifier for this Verification</span>
+							</div>
+						</div>
+					</div>
+				</h:form>
+
+
+			</cxp:panel>
+
+			<cxp:panel title="Applicant Information" icon="fa-user">
+
+
+
+			</cxp:panel>
+
+		</h:panelGroup>
+
+	</h:body>
+</f:view>
