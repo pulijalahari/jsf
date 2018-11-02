@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:cxp="http://xmlns.jcp.org/jsf/composite/components">
+    <h:head>
+        <h:outputStylesheet library="css" name="main.css" />
+		<h:outputStylesheet library="css" name="rux.css" />
+		<h:outputStylesheet library="css" name="magnific.popup.css" />
+		<h:outputScript library="js" name="main.js" />
+		<script type="text/javascript">
+			function hideModal(){
+				document.getElementById('modalBox').style.display="none";
+			}
+		</script>
+    </h:head>
+    <h:body class="rux-framework sticky-footer-page dashboard">
+    	<h:form id="OrderForm" name="OrderForm">
+			<h:panelGroup id="NewOrderPanel" layout="block"
+					styleClass="container-fluid constrain dashboard">
+				<header class="content-heading">
+					<div class="row">
+						<div class="col-xs-12">
+							<p>Fill out the information below to start a new order.</p>
+						</div>
+					</div>
+				</header>
+				<cxp:panel title="Search Criteria" icon="heading-icon rounded-circle" >
+					<div class="row quick-search pt20">
+						<div class="col-xs-12 col-md-8">
+							<form name="searchForm" id="searchForm" action="#" class="fancy-input">
+								<b:inputText type="text"  placeholder="Enter a Tracking Number or Customer Reference Number" value="#{searchOrder.searchKey}" styleClass="form-control"  maxlength="100" >
+								</b:inputText>
+								<span class="search-tools"> <a href="javascript:;" class="fa fa-search"></a></span>
+							</form>
+						</div>
+						<div class="col-xs-12 col-md-4 advanced-option"> <a data-toggle="collapse" data-parent="#card-accordion-simple" href="#advSearchSection" aria-expanded="false" aria-controls="collapseOne">Advanced Search</a> </div>
+					</div>
+					<div class="row advance-search">
+						<div id="advSearchSection" class="collapse adv-search-section" role="tabpanel" aria-labelledby="headingTwo1">
+							<div class="row"> <span class="parent-pointer"><i class="up"></i></span>
+								<p class="form-hint"><span>*</span>At least one field is required to search</p>
+								<form name="advSearchForm" id="advSearchForm" action="#" class="">
+									<div class="col-xs-12 col-sm-6 col-md-4 form-group">
+										<label for="trackingNumber">Tracking Number</label>
+										<b:inputText type="text" value="#{searchOrder.trackingNumber}" styleClass="form-control"  maxlength="100" >
+										</b:inputText>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 form-group">
+										<label for="customerRefNumber">Customer Reference Number</label>
+										<b:inputText type="text" value="#{searchOrder.customerRefNumber}" styleClass="form-control"  maxlength="100" >
+										</b:inputText>
+									</div>
+									<div id="datepicker_dateCreated" class="col-xs-12 col-sm-6 col-md-2 form-group dateinput-group">
+										<label for="birthDate">Date Created</label>
+										<div class="input-group date" data-provide="datepicker">
+											<input class="form-control" type="text" id="dateCreated" name="dateCreated" pattern="(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)[0-9]{2}" minlength="10" maxlength="10"></input>
+											<div class="input-group-addon"> <span class="dateinput-icon " aria-hidden="true"> <i class="far fa-calendar-alt"></i> </span> </div>
+										</div>
+									</div>
+									<div id="datepicker_to" class="col-xs-12 col-sm-6 col-md-2 form-group dateinput-group">
+										<label for="birthDate">To</label>
+										<div class="input-group date" data-provide="datepicker">
+											<input class="form-control" type="text" id="to" name="to" pattern="(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)[0-9]{2}" minlength="10" maxlength="10"></input>
+											<div class="input-group-addon"> <span class="dateinput-icon " aria-hidden="true"> <i class="far fa-calendar-alt"></i> </span> </div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 form-group">
+										<label for="firstName">First Name</label>
+										<b:inputText type="text" value="#{searchOrder.firstName}" styleClass="form-control"  maxlength="100" >
+										</b:inputText>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 form-group">
+										<label for="lastName">Last Name</label>
+										<b:inputText type="text" value="#{searchOrder.lastName}" styleClass="form-control"  maxlength="100" >
+										</b:inputText>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-2 form-group">
+										<label for="sin">SIN</label>
+										<b:inputText type="text" value="#{searchOrder.sin}" styleClass="form-control"  maxlength="100" >
+										</b:inputText>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-2 form-group">
+										<label for="industry">Status</label>
+										<b:selectOneMenu value="#{NewOrders.status}" styleClass="form-control" >
+											  <f:selectItem itemLabel="Show All" itemValue="" />
+										      <f:selectItem itemLabel="Completed" itemValue="Completed"  />
+										      <f:selectItem itemLabel="In Progress" itemValue="InProgress" />
+										</b:selectOneMenu>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</cxp:panel>
+				<div id="modalBox" style="display:block;">
+		        	<b:modal id="amodal2" title="Modal Example" styleClass="modalPseudoClass2"
+		           			closable="false"  close-on-escape="false" backdrop="false">
+					    <div id="onloadModal" class="popup-content-area white-popup text-left">
+							<div class="alert alert-success row" role="alert">
+								<h4 class="col-12"><i class="far fa-check-circle"></i> Your order has been successfully submitted!</h4>
+							</div>
+							<div class="row message-wraper">
+								<p class="col-12 message pb30">Most requests for employment verifications are returned within 1-2 business days, while requests for income verifications are typically take 1-3 days. Stay updated on the status of your order on the ‘Search Orders’ screen or by viewing your notifications.</p>
+								<h5 class="col-12">Order Details</h5>
+								<ul class="pay-details p-0" >
+									<li class="col-12 col-md-auto pb-3">TRACKING NUMBER:<br/>
+										100200512637</li>
+									<li class="col-12 col-md-auto pb-3 last">CUSTOMER REFERENCE NUMBER:<br/>
+										New Verification 2</li>
+								</ul>
+							</div>
+							<hr class="d-block"></hr>
+							<div class="text-center">
+								<f:facet name="footer">
+							      <b:button styleClass="btn mb5 close-action-btn btn-outline-info" onclick="hideModal();" value="VIEW PENDING ORDERS" look="primary"  />
+							    </f:facet>
+							</div>
+						</div>
+		    		</b:modal>
+	    		</div>
+    		</h:panelGroup>
+    	</h:form>
+    </h:body>
+    
+</f:view>
