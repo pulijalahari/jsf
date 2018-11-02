@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:cxp="http://xmlns.jcp.org/jsf/composite/components">
+
+	<h:head>
+		<h:outputStylesheet library="css" name="main.css" />
+		<h:outputScript library="js" name="main.js" />
+	</h:head>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$('.mfp-hide').modal('hide');
+		});
+	</script>
+	<h:body>
+
+		<h:panelGroup id="NewOrder" layout="block"
+			styleClass="container-fluid constrain dashboard">
+
+			<header class="content-heading">
+				<div class="row">
+					<div class="col-xs-12">
+						<p>Fill out the information below to start a new order.</p>
+					</div>
+				</div>
+			</header>
+			<h:form id="OrderForm" name="OrderForm">
+				<cxp:panel title="Order Information" icon="fa-shopping-cart">
+
+					<div id="orderInfoPanel" class="section-body collapse in">
+						<div class="row">
+							<div class="col-sm-6 col-md-4 form-group required">
+								<label for="verificationType">Verification Type</label>
+								<b:selectOneMenu
+									value="#{verificationNewOrderService.selectedVerificationType}"
+									required="true"
+									validatorMessage="Please select an item in the list."
+									requiredMessage="Please select an item in the list."
+									ajax="true" update=":OrderForm">
+									<f:selectItem itemLabel="Select an Option.." itemValue="" />
+									<f:selectItem itemLabel="Employment Verification"
+										itemValue="Employment Verification" />
+									<f:selectItem itemLabel="Employment &amp; Income Verification"
+										itemValue="Employment &amp; Income Verification" />
+								</b:selectOneMenu>
+								<b:message for="@previous" />
+							</div>
+							<div class="col-sm-6 col-md-4 form-group required">
+								<label for="identifyingPurpose">Identifying Purpose</label>
+								<b:selectOneMenu
+									value="#{verificationNewOrderService.selectedPurpose}"
+									required="true"
+									validatorMessage="Please select an item in the list."
+									requiredMessage="Please select an item in the list."
+									ajax="true" update=":OrderForm">
+									<f:selectItem itemLabel="Select an Option.." itemValue="" />
+									<f:selectItem itemLabel="Social Services"
+										itemValue="Social Services" />
+								</b:selectOneMenu>
+								<b:message for="@previous" />
+							</div>
+							<div class="col-sm-6 col-md-4 form-group">
+								<label for="customerRefNum"> Customer Reference Number<a
+									href="#" class="more-info" role="button" data-toggle="popover"
+									data-trigger="hover focus"
+									data-content="Number linking the verification request back to your in-house numbering system">
+										<i class="fas fa-info-circle" aria-hidden="true"></i>
+								</a>
+								</label>
+								<b:inputText id="custRefNumber"
+									value="#{verificationNewOrderService.custRefNum}"
+									maxlength="30" ajax="true" update=":OrderForm"
+									validatorMessage="The Customer Reference Number should be 30 characters or less and can contain only alphanumeric characters and hyphens (-)."
+									placeholder="Optional Unique Identifier for this Verification">
+									<f:validateRegex pattern="^[A-Za-z0-9\d-]*$" />
+								</b:inputText>
+								<b:message for="@previous" />
+
+							</div>
+						</div>
+					</div>
+
+				</cxp:panel>
+
+				<cxp:panel title="Applicant Information" icon="fa-user">
+
+					<div id="applicantInfoPanel" class="section-body collapse in">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="row">
+									<div class="col-sm-6 col-md-4 form-group required">
+										<label for="firstName">First Name</label>
+										<b:inputText styleClass="form-control" required="true"
+											value="#{verificationNewOrderService.firstName}" ajax="true"
+											update=":OrderForm" validatorMessage="Please enter valid"
+											requiredMessage="Please fill out this field.">
+											<f:validateRegex
+												pattern="[a-zA-Z\u00C0-\u024F]([a-zA-Z\u00C0-\u024F\u0020\u002D\u0027]+[a-zA-Z\u00C0-\u024F])*" />
+										</b:inputText>
+										<b:message for="@previous" />
+									</div>
+									<div class="col-sm-6 col-md-4 form-group">
+										<label for="middleName">Middle Name</label>
+										<b:inputText styleClass="form-control"
+											value="#{verificationNewOrderService.middleName}" ajax="true"
+											update=":OrderForm" />
+									</div>
+									<div class="col-sm-6 col-md-4 form-group required">
+										<label for="lastName">Last Name</label>
+										<b:inputText styleClass="form-control" required="true"
+											value="#{verificationNewOrderService.lastName}" ajax="true"
+											update=":OrderForm" validatorMessage="Please enter valid"
+											requiredMessage="Please fill out this field.">
+											<f:validateRegex
+												pattern="[a-zA-Z\u00C0-\u024F]([a-zA-Z\u00C0-\u024F\u0020\u002D\u0027]+[a-zA-Z\u00C0-\u024F])*" />
+										</b:inputText>
+										<b:message for="@previous" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6 col-md-4 form-group">
+										<label for="applicantSIN">SIN</label>
+										<b:inputText styleClass="form-control" required="true"
+											value="#{verificationNewOrderService.sin}" ajax="true"
+											update=":OrderForm"
+											validatorMessage="Please enter a valid SIN"
+											requiredMessage="Please fill out this field.">
+											<f:validateRegex pattern="([0-9]{3}-?){2}[0-9]{3}" />
+										</b:inputText>
+										<b:message for="@previous" />
+									</div>
+									<div id="datepicker_birthDate"
+										class="col-sm-6 col-md-4 form-group dateinput-group">
+										<label for="birthDate">Date of Birth</label>
+										<b:dateTimePicker id="dateCreated"
+											value="#{verificationNewOrderService.dob}" name="dateCreated"
+											show-date="true" show-time="false" use-current="false" />
+
+									</div>
+									<div class="col-sm-6 col-md-4 form-group required">
+										<label for="Email">Email</label>
+										<b:inputText styleClass="form-control" required="true"
+											value="#{verificationNewOrderService.email}" ajax="true"
+											update=":OrderForm"
+											requiredMessage="Please fill out this field." />
+										<b:message for="@previous" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6 col-md-4 form-group required">
+										<label for="Address1">Address 1</label>
+										<b:inputText styleClass="form-control" required="true"
+											value="#{verificationNewOrderService.address1}" ajax="true"
+											update=":OrderForm"
+											requiredMessage="Please fill out this field.">
+											<f:validateRegex pattern="[A-Za-z0-9.+ ]+" />
+										</b:inputText>
+										<span class="sr-only" aria-labelledby="Address 1">Street
+											Address</span>
+										<b:message for="@previous" />
+									</div>
+									<div class="col-sm-6 col-md-4 form-group">
+										<label for="Address2">Address 2</label>
+										<b:inputText styleClass="form-control"
+											value="#{verificationNewOrderService.address2}" ajax="true"
+											update=":OrderForm"
+											placeholder="Apartment, suite, unit, etc.">
+										</b:inputText>
+										<span class="sr-only" aria-labelledby="Address 2">Apartment,
+											suite, unit, etc.</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6 col-md-4 form-group required">
+										<label for="City">City</label>
+										<b:inputText styleClass="form-control" required="true"
+											value="#{verificationNewOrderService.city}" ajax="true"
+											update=":OrderForm"
+											requiredMessage="Please fill out this field." />
+										<b:message for="@previous" />
+									</div>
+									<div class="col-sm-6 col-md-4 form-group required">
+										<label for="provinceOrTerritory">Providence/Territory</label>
+										<b:selectOneMenu
+											value="#{verificationNewOrderService.province}"
+											required="true"
+											validatorMessage="Please select an item in the list."
+											requiredMessage="Please select an item in the list."
+											ajax="true" update=":OrderForm">
+											<f:selectItem itemLabel="Select an Option.." itemValue="" />
+											<f:selectItem itemLabel="Alberta" itemValue="AB" />
+											<f:selectItem itemLabel="British Columbia" itemValue="BC" />
+											<f:selectItem itemLabel="Manitoba" itemValue="MB" />
+											<f:selectItem itemLabel="New Brunswick" itemValue="NB" />
+											<f:selectItem itemLabel="Newfoundland and Labrador"
+												itemValue="NL" />
+											<f:selectItem itemLabel="Nova Scotia" itemValue="NS" />
+											<f:selectItem itemLabel="Ontario" itemValue="ON" />
+											<f:selectItem itemLabel="Prince Edward Island" itemValue="PE" />
+											<f:selectItem itemLabel="Quebec" itemValue="QC" />
+											<f:selectItem itemLabel="Saskatchewan" itemValue="SK" />
+
+										</b:selectOneMenu>
+										<b:message for="@previous" />
+									</div>
+									<div class="col-sm-4 col-md-3 form-group required">
+										<label for="postalCode">Postal Code</label>
+										<b:inputText styleClass="form-control" required="true"
+											value="#{verificationNewOrderService.postalCode}" ajax="true"
+											update=":OrderForm"
+											validatorMessage="Please enter a valid postal code"
+											requiredMessage="Please fill out this field.">
+											<f:validateRegex
+												pattern="[ABCEGHJ-NPRSTVXYabceghj-nprstvxy][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\s?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]" />
+										</b:inputText>
+										<b:message for="@previous" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</cxp:panel>
+				<div class="section-body no-border form-step-buttons">
+					<div class="row">
+						<div class="step-ctrl col-sm-6">
+							<b:button value="Submit Order" look="success"
+								onclick="$('.mfp-hide').modal()" size="lg"
+								styleClass="btn step-finish" />
+
+						</div>
+					</div>
+				</div>
+
+				<b:modal
+					styleClass="mfp-hide popup-content-area white-popup text-left"
+					closable="true" closeOnEscape="true">
+					<div class="alert alert-success row" role="alert">
+						<h4 class="col-12">
+							<i class="far fa-check-circle"></i> Your order has been
+							successfully submitted!
+						</h4>
+					</div>
+
+
+				</b:modal>
+
+			</h:form>
+		</h:panelGroup>
+
+	</h:body>
+</f:view>
