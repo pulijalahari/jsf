@@ -1,5 +1,7 @@
 package com.equifax.bootsfaces.portlet.bean;
 
+import java.io.File;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -16,8 +18,9 @@ public class ManualVerification {
 	private String employerCity;
 	private String employerProvinceOrTerritory;
 	private String employerPostalCode;
-	private String file;
-	private String upload;
+	private File fileOfEmployerDocumentation;
+	private File fileOfGeneralDocumentation;
+	
 	public String getEmployerName() {
 		return employerName;
 	}
@@ -72,17 +75,24 @@ public class ManualVerification {
 	public void setEmployerPostalCode(String employerPostalCode) {
 		this.employerPostalCode = employerPostalCode;
 	}
-	public String getFile() {
-		return file;
+	
+	public File getFileOfEmployerDocumentation() {
+		return fileOfEmployerDocumentation;
 	}
-	public void setFile(String file) {
-		this.file = file;
+	public void setFileOfEmployerDocumentation(File fileOfEmployerDocumentation) {
+		this.fileOfEmployerDocumentation = fileOfEmployerDocumentation;
 	}
-	public String getUpload() {
-		return upload;
+	public File getFileOfGeneralDocumentation() {
+		return fileOfGeneralDocumentation;
 	}
-	public void setUpload(String upload) {
-		this.upload = upload;
+	public void setFileOfGeneralDocumentation(File fileOfGeneralDocumentation) {
+		this.fileOfGeneralDocumentation = fileOfGeneralDocumentation;
+	}
+	public void submitManualVerification(){
+		System.out.println("submitManualVerification****************");
+	}
+	public void backToNewOrder(){
+		System.out.println("backToNewOrder****************");
 	}
 	
 	
