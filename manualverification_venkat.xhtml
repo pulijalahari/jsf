@@ -34,7 +34,7 @@
 						</div>
 					</div>
 				</header>
-				<h:form id="manualVerificationForm" name="manualVerificationForm" class="has-customvalidity multiple-dropzones" >
+				<h:form id="manualVerificationForm" name="manualVerificationForm" enctype="multipart/form-data" class="has-customvalidity multiple-dropzones" >
 					<cxp:panel title="Employer Information" icon="heading-icon rounded-circle far fa-building" >
 						<div id="employerInfoPanel" class="section-body collapse in">
 							<div class="row">
@@ -50,6 +50,7 @@
 													<f:validateRegex
 														pattern="[a-zA-Z\u00C0-\u024F]([a-zA-Z\u00C0-\u024F\u0020\u002D\u0027]+[a-zA-Z\u00C0-\u024F])*" />
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 											<div class="col-sm-6 col-md-4 form-group">
 												<label for="employerPhone">Phone Number</label>
@@ -59,6 +60,7 @@
 													<f:validateRegex
 														pattern="\([2-9][0-9]{2}\)\s[0-9]{3}-[0-9]{4}|[2-9][0-9]{2}-[0-9]{3}-[0-9]{4}|[2-9][0-9]{9}" />
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 										</div>
 										<div class="row">
@@ -68,6 +70,7 @@
 													value="#{manualVerification.employerEmail}" ajax="true"  
 													update=":manualVerificationForm" >
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 											<div class="col-sm-6 col-md-4 form-group">
 												<label for="employerFax">Fax Number</label>
@@ -77,6 +80,7 @@
 													<f:validateRegex
 														pattern="\([2-9][0-9]{2}\)\s[0-9]{3}-[0-9]{4}|[2-9][0-9]{2}-[0-9]{3}-[0-9]{4}|[2-9][0-9]{9}" />
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 										</div>
 										<div class="row">
@@ -89,6 +93,7 @@
 													<f:validateRegex
 														pattern="[A-Za-z0-9.+ ]+" />
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 											<div class="col-sm-6 col-md-4 form-group">
 												<label for="employerAddress2">Address 2</label>
@@ -97,6 +102,7 @@
 													update=":manualVerificationForm" validatorMessage="Please enter valid"
 													>
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 										</div>
 										<div class="row">
@@ -107,6 +113,7 @@
 													update=":manualVerificationForm" requiredMessage="Please fill out this field"
 													>
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 											<div class="col-sm-6 col-md-4 form-group required">
 												<label for="employerProvinceOrTerritory">Providence/Territory</label>
@@ -143,8 +150,10 @@
 													<f:validateRegex
 														pattern="[ABCEGHJ-NPRSTVXYabceghj-nprstvxy][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\s?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]" />
 												</b:inputText>
+												<b:message for="@previous" />
 											</div>
 										</div>
+										
 										<div class="row">
 											<div class="file-dropzone col-sm-12 col-md-7 form-group">
 												<label for="employerDocumentation"> Employer Documentation <a
@@ -157,12 +166,13 @@
 												<div class="dropzone-wrapper" aria-hidden="true">
 													<div class="dropzone-controls">
 														<div class="dropzone-area"><span class="dropzone-icon far fa-arrows-alt"></span> Drag Files Here to Upload</div>
-														<p:fileUpload styleClass="btn btn-outline-dialog dropzone-browse" value="#{manualVerification.file}" mode="simple" skinSimple="true"/>
+														<b:commandButton styleClass="btn btn-outline-dialog dropzone-browse" value="Browse"></b:commandButton>														
 													</div>
 													<ul class="dropzone-filelist" data-removebutton-text="Remove File">
 													</ul>
 												</div>
-												<!-- <input id="employerDocumentation" class="dropzone-input form-control" name="employer[][employerDocumentation][]" type="file" accept="image/tiff,image/png,application/pdf,image/x-eps,application/msword,application/vnd.oasis.opendocument.text,text/rtf,text/plain" ></input> -->
+												<!-- <input id="employerDocumentation" class="dropzone-input form-control" name="employer[][employerDocumentation][]" type="file" accept="image/tiff,image/png,application/pdf,image/x-eps,application/msword,application/vnd.oasis.opendocument.text,text/rtf,text/plain" multiple> -->
+												<h:inputFile id="employerDocumentation" styleClass="dropzone-input form-control"></h:inputFile>
 											</div>
 										</div>
 									</fieldset>
@@ -190,12 +200,14 @@
 												<div aria-hidden="true">
 													<div class="dropzone-controls">
 														<div class="dropzone-area"><span class="dropzone-icon far fa-arrows-alt"></span> Drag Files Here to Upload</div>
-														<p:fileUpload styleClass="btn btn-outline-dialog dropzone-browse" value="#{manualVerification.file}" mode="simple" skinSimple="true"/>
+													    <b:commandButton styleClass="btn btn-outline-dialog dropzone-browse" value="Browse"></b:commandButton>
+														
 													</div>
 													<ul class="dropzone-filelist" data-removebutton-text="Remove File">
 													</ul>
 												</div>
 												<!-- <input id="generalDocumentation" class="dropzone-input form-control" name="generalDocumentation[]" type="file" accept="image/tiff,image/png,application/pdf,image/x-eps,application/msword,application/vnd.oasis.opendocument.text,text/rtf,text/plain" ></input> -->
+												<h:inputFile id="generalDocumentation" styleClass="dropzone-input form-control"></h:inputFile>
 											</div>
 										</div>
 									</div>
@@ -207,10 +219,12 @@
 						<div class="section-body no-border form-step-buttons">
 							<div class="row">
 								<div class="step-ctrl col">
-									<button id="btnPrevScreen" type="button" class="btn step-prev">&lt; Back</button>
+									<b:commandButton styleClass="btn step-prev" action="#{manualVerification.backToNewOrder}" value="#{i18n[' &lt; Back ']}">
+	        						</b:commandButton>
 								</div>
 								<div class="step-ctrl col">
-									<button id="btnSubmitOrder" type="submit" class="btn step-finish">Submit For Manual Verification &gt;</button>
+									<b:commandButton styleClass="btn step-finish" action="#{manualVerification.submitManualVerification}" value="#{i18n['Submit For Manual Verification >']}">
+	        						</b:commandButton>
 								</div>
 							</div>
 						</div>
