@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:cxp="http://xmlns.jcp.org/jsf/composite/components">
+    <h:head>
+        <h:outputStylesheet library="css" name="main.css" />
+		<h:outputStylesheet library="css" name="rux.css" />
+		<h:outputScript library="js" name="main.js" />
+    </h:head>
+    <h:body>
+       	<div class="container-fluid constrain rux-framework sticky-footer-page dashboard">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="alert alert-warning clearfix">
+						<div class="alert-icon" aria-hidden="true">
+							<span class="fal fa-exclamation-circle"></span>
+						</div>
+						<div class="alert-message">
+							<p>We were unable to find a match for your verification in our instant database. Please enter additional information below and we will contact the employer.</p>
+							<p>Most requests for verification of employment are returned within 1-2 business days, while requests for verification of income are typically returned within 1-3 business days.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid constrain">
+				<header class="content-heading">
+					<div class="row">
+						<div class="col-xs-12">
+							<p>Additional information is needed to complete this verification.</p>
+						</div>
+					</div>
+				</header>
+				<h:form id="manualVerificationForm" name="manualVerificationForm" class="has-customvalidity multiple-dropzones" >
+					<cxp:panel title="Employer Information" icon="heading-icon rounded-circle far fa-building" >
+						<div id="employerInfoPanel" class="section-body collapse in">
+							<div class="row">
+								<div class="dynamic-fieldsets col-xs-12">
+									<fieldset class="employer">
+										<div class="row">
+											<div class="col-sm-6 col-md-4 form-group required">
+												<label for="employerName">Employer Name</label>
+												<b:inputText styleClass="form-control" required="true"
+													value="#{manualVerification.employerName}" ajax="true"
+													update=":manualVerificationForm" validatorMessage="Please enter valid"
+													requiredMessage="Please fill out this field.">
+													<f:validateRegex
+														pattern="[a-zA-Z\u00C0-\u024F]([a-zA-Z\u00C0-\u024F\u0020\u002D\u0027]+[a-zA-Z\u00C0-\u024F])*" />
+												</b:inputText>
+											</div>
+											<div class="col-sm-6 col-md-4 form-group">
+												<label for="employerPhone">Phone Number</label>
+												<b:inputText styleClass="form-control" placeholder="Strongly Recommended"
+													value="#{manualVerification.employerPhone}" ajax="true" maxlength="14" 
+													update=":manualVerificationForm" validatorMessage="Please enter valid">
+													<f:validateRegex
+														pattern="\([2-9][0-9]{2}\)\s[0-9]{3}-[0-9]{4}|[2-9][0-9]{2}-[0-9]{3}-[0-9]{4}|[2-9][0-9]{9}" />
+												</b:inputText>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-6 col-md-4 form-group">
+												<label for="employerEmail">Email</label>
+												<b:inputText styleClass="form-control" type="email" 
+													value="#{manualVerification.employerEmail}" ajax="true"  
+													update=":manualVerificationForm" >
+												</b:inputText>
+											</div>
+											<div class="col-sm-6 col-md-4 form-group">
+												<label for="employerFax">Fax Number</label>
+												<b:inputText styleClass="form-control" 
+													value="#{manualVerification.employerFax}" ajax="true" maxlength="14" 
+													update=":manualVerificationForm" validatorMessage="Please enter valid">
+													<f:validateRegex
+														pattern="\([2-9][0-9]{2}\)\s[0-9]{3}-[0-9]{4}|[2-9][0-9]{2}-[0-9]{3}-[0-9]{4}|[2-9][0-9]{9}" />
+												</b:inputText>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-6 col-md-4 form-group required">
+												<label for="employerAddress1">Address 1</label>
+												<b:inputText styleClass="form-control" placeholder="Street Address" required="true"
+													value="#{manualVerification.employerAddress1}" ajax="true" maxlength="150" 
+													update=":manualVerificationForm" validatorMessage="Please enter valid"
+													requiredMessage="Please fill out this field">
+													<f:validateRegex
+														pattern="[A-Za-z0-9.+ ]+" />
+												</b:inputText>
+											</div>
+											<div class="col-sm-6 col-md-4 form-group">
+												<label for="employerAddress2">Address 2</label>
+												<b:inputText styleClass="form-control" placeholder="Apartment, suite, unit, etc."
+													value="#{manualVerification.employerAddress2}" ajax="true" 
+													update=":manualVerificationForm" validatorMessage="Please enter valid"
+													>
+												</b:inputText>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-6 col-md-4 form-group required">
+												<label for="employerCity">City</label>
+												<b:inputText styleClass="form-control" required="true"
+													value="#{manualVerification.employerCity}" ajax="true" 
+													update=":manualVerificationForm" requiredMessage="Please fill out this field"
+													>
+												</b:inputText>
+											</div>
+											<div class="col-sm-6 col-md-4 form-group required">
+												<label for="employerProvinceOrTerritory">Providence/Territory</label>
+												<b:selectOneMenu
+													value="#{manualVerification.employerProvinceOrTerritory}"
+													required="true"
+													validatorMessage="Please select an item in the list."
+													requiredMessage="Please select an item in the list."
+													ajax="true" update=":manualVerificationForm">
+													<f:selectItem itemLabel="Select an Option.." itemValue="" />
+													<f:selectItem itemLabel="Alberta" itemValue="AB" />
+													<f:selectItem itemLabel="British Columbia" itemValue="BC" />
+													<f:selectItem itemLabel="Manitoba" itemValue="MB" />
+													<f:selectItem itemLabel="New Brunswick" itemValue="NB" />
+													<f:selectItem itemLabel="Newfoundland and Labrador"
+														itemValue="NL" />
+													<f:selectItem itemLabel="Nova Scotia" itemValue="NS" />
+													<f:selectItem itemLabel="Ontario" itemValue="ON" />
+													<f:selectItem itemLabel="Prince Edward Island" itemValue="PE" />
+													<f:selectItem itemLabel="Quebec" itemValue="QC" />
+													<f:selectItem itemLabel="Saskatchewan" itemValue="SK" />
+		
+												</b:selectOneMenu>
+												<b:message for="@previous" />
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-4 col-md-3 form-group">
+												<label for="employerPostalCode">Postal Code</label>
+												<b:inputText styleClass="form-control" 
+													value="#{manualVerification.employerPostalCode}" ajax="true" 
+													update=":manualVerificationForm" validatorMessage="Please enter valid"
+													maxlength="7">
+													<f:validateRegex
+														pattern="[ABCEGHJ-NPRSTVXYabceghj-nprstvxy][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\s?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]" />
+												</b:inputText>
+											</div>
+										</div>
+										<div class="row">
+											<div class="file-dropzone col-sm-12 col-md-7 form-group">
+												<label for="employerDocumentation"> Employer Documentation <a
+													href="#" class="more-info" role="button" data-toggle="popover"
+													data-trigger="hover focus"
+													data-content="e.g. letter of employment, pay stubs, etc.">
+														<i class="fas fa-info-circle" aria-hidden="true"></i>
+												</a>
+												</label>
+												<div class="dropzone-wrapper" aria-hidden="true">
+													<div class="dropzone-controls">
+														<div class="dropzone-area"><span class="dropzone-icon far fa-arrows-alt"></span> Drag Files Here to Upload</div>
+														<p:fileUpload styleClass="btn btn-outline-dialog dropzone-browse" value="#{manualVerification.file}" mode="simple" skinSimple="true"/>
+													</div>
+													<ul class="dropzone-filelist" data-removebutton-text="Remove File">
+													</ul>
+												</div>
+												<!-- <input id="employerDocumentation" class="dropzone-input form-control" name="employer[][employerDocumentation][]" type="file" accept="image/tiff,image/png,application/pdf,image/x-eps,application/msword,application/vnd.oasis.opendocument.text,text/rtf,text/plain" ></input> -->
+											</div>
+										</div>
+									</fieldset>
+									<div class="fieldsets-ctrl mt30">
+										<!-- <button id="btnAddEmployer" class="btn add" type="button">&#43; ;Add Another Employer</button> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</cxp:panel>
+					<cxp:panel title="General Documentation" icon="heading-icon rounded-circle far fa-copy" >
+						<div id="generalDocPanel" class="section-body collapse in">
+							<div class="row">
+								<div class="col-xs-12">
+									<div id="generalDocUpload" class="upload-wrapper gray">
+										<div class="row">
+											<div class="file-dropzone col-sm-12 col-md-7 form-group">
+												<label for="generalDocumentation"> Upload Documentation <a
+													href="#" class="more-info" role="button" data-toggle="popover"
+													data-trigger="hover focus"
+													data-content="e.g. applicant's consent to verify">
+														<i class="fas fa-info-circle" aria-hidden="true"></i>
+												</a>
+												</label>
+												<div aria-hidden="true">
+													<div class="dropzone-controls">
+														<div class="dropzone-area"><span class="dropzone-icon far fa-arrows-alt"></span> Drag Files Here to Upload</div>
+														<p:fileUpload styleClass="btn btn-outline-dialog dropzone-browse" value="#{manualVerification.file}" mode="simple" skinSimple="true"/>
+													</div>
+													<ul class="dropzone-filelist" data-removebutton-text="Remove File">
+													</ul>
+												</div>
+												<!-- <input id="generalDocumentation" class="dropzone-input form-control" name="generalDocumentation[]" type="file" accept="image/tiff,image/png,application/pdf,image/x-eps,application/msword,application/vnd.oasis.opendocument.text,text/rtf,text/plain" ></input> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</cxp:panel>
+					<section class="content-section">
+						<div class="section-body no-border form-step-buttons">
+							<div class="row">
+								<div class="step-ctrl col">
+									<button id="btnPrevScreen" type="button" class="btn step-prev">&lt; Back</button>
+								</div>
+								<div class="step-ctrl col">
+									<button id="btnSubmitOrder" type="submit" class="btn step-finish">Submit For Manual Verification &gt;</button>
+								</div>
+							</div>
+						</div>
+					</section>
+				</h:form>
+			</div>
+		</div>
+    </h:body>
+    
+</f:view>
